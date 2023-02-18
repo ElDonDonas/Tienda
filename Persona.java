@@ -11,11 +11,11 @@ package ProyectoFinalP3;
 public class Persona {
     private String nombre;
     private String identificacion;
-    private int edad;
+    private String edad;
     private String celular;
     private String cargo;
     
-    public Persona(String nombre, String identificacion, int edad, String celular, String cargo) {
+    public Persona(String nombre, String identificacion, String edad, String celular, String cargo) {
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.edad = edad;
@@ -39,11 +39,11 @@ public class Persona {
         this.identificacion = identificacion;
     }
     
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
     
-    public void setEdad(int edad) {
+    public void setEdad(String edad) {
         this.edad = edad;
     }
     

@@ -6,7 +6,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import ProyectoFinalP3.DatosPersona;
 import ProyectoFinalP3.VProducto;
+import ProyectoFinalP3.Principal;
+import ProyectoFinalP3.Persona;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
@@ -16,6 +19,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class Principal extends javax.swing.JFrame {
+
+    private ArrayList<Persona> personasList = new ArrayList<>();
+
+    public ArrayList<Persona> getPersonasList() {
+        return personasList;
+    }
 
     public Principal() {
         initComponents();
@@ -265,15 +274,15 @@ public class Principal extends javax.swing.JFrame {
         // Actualizar el valor de la columna "Código" en la jTable
         jTable.setValueAt(codigo, selectedRow, 6);
 
-    
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Personal ventana = new Personal();
+        Personal ventana = new Personal(this,"", "", "", "", "");
         ventana.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        DatosPersona ventana = new DatosPersona();
+DatosPersona ventana = new DatosPersona(this);
         ventana.setVisible(true);     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -316,17 +325,17 @@ public class Principal extends javax.swing.JFrame {
     DefaultTableModel M;
 
     private void CrearModelo() {
-            try {
-        if (jTable != null) {
-            M = (new DefaultTableModel(
-                    null, new String[]{
-                        "Nombre", "Cantidad", "Compra", "Venta",
-                        "Elaboración", "Vencimiento", "Codigo"}));
-            jTable.setModel(M);
+        try {
+            if (jTable != null) {
+                M = (new DefaultTableModel(
+                        null, new String[]{
+                            "Nombre", "Cantidad", "Compra", "Venta",
+                            "Elaboración", "Vencimiento", "Codigo"}));
+                jTable.setModel(M);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error");
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error");
-    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

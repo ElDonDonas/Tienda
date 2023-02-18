@@ -1,118 +1,102 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ProyectoFinalP3;
 
 import java.awt.BorderLayout;
-import java.util.List;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Paul Jaramillo
  */
-import java.awt.BorderLayout;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+//verifica por que no se muestra la ventana de datos de la persona  en el jframe
 
-public class DatosPersona extends JFrame {
 
-    private JTable tablaPersonas;
+
+public class DatosPersona extends javax.swing.JPanel {
+
+    private Principal principal;
     private Personal personal;
 
-    public DatosPersona() {
+    public DatosPersona(Principal principal) {
         initComponents();
-        // Inicializar la variable personal
-        personal = new Personal();
 
-        // Llenar la tabla con los datos de la lista de personas al iniciar la ventana
-        actualizarTablaPersonas();
+        // Crear un scroll pane para la tabla
+        JScrollPane scrollPane = new JScrollPane(jTable1);
+        this.add(scrollPane, BorderLayout.CENTER);
+
+        this.principal = principal;
+        llenarTabla();
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Nombre");
+        model.addColumn("Identificación");
+        model.addColumn("Edad");
+        model.addColumn("Celular");
+        model.addColumn("Cargo");
+        jTable1.setModel(model);
+
     }
 
-    private void initComponents() {
-        // Crear la tabla con las columnas necesarias
-        String[] columnas = {"Nombre", "Identificación", "Edad", "Celular", "Cargo"};
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-        tablaPersonas = new JTable(modelo);
-        tablaPersonas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-
-        // Agregar la tabla a un scroll pane
-        JScrollPane scrollPane = new JScrollPane(tablaPersonas);
-
-        // Crear el contenedor principal
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(scrollPane, BorderLayout.CENTER);
-        getContentPane().add(panel);
-
-        // Ajustar el tamaño de la ventana para que se ajuste al contenido
-        pack();
-    }
-
-    // Métodos para obtener y modificar la tabla
-    public JTable getTablaPersonas() {
-        return tablaPersonas;
-    }
-
-    public void setTablaPersonas(JTable tablaPersonas) {
-        this.tablaPersonas = tablaPersonas;
-    }
-    
-    public void mostrarDatos(List<Persona> personas) {
-    // Crea un modelo de tabla vacío con los nombres de columna deseados
-    DefaultTableModel modelo = new DefaultTableModel();
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Identificación");
-    modelo.addColumn("Edad");
-    modelo.addColumn("Celular");
-    modelo.addColumn("Cargo");
-
-    // Agrega una fila por cada persona en la lista
-    for (Persona persona : personas) {
-        Object[] fila = new Object[5];
-        fila[0] = persona.getNombre();
-        fila[1] = persona.getIdentificacion();
-        fila[2] = persona.getEdad();
-        fila[3] = persona.getCelular();
-        fila[4] = persona.getCargo();
-        modelo.addRow(fila);
-    }
-
-    // Asigna el modelo de tabla creado a la tabla de la interfaz gráfica
-    tablaPersonas.setModel(modelo);
-}
-
-
-
-
-
-
-    public void actualizarTablaPersonas() {
-        DefaultTableModel modelo = (DefaultTableModel) getTablaPersonas().getModel();
-        modelo.setRowCount(0); // Limpiar la tabla
-
-        // Obtener la lista de personas de la clase Personal
-        List<Persona> personas = personal.getPersonas();
-
-        // Llenar la tabla con los datos de las personas
-        for (Persona persona : personas) {
-            Object[] fila = {persona.getNombre(), persona.getIdentificacion(), persona.getEdad(), persona.getCelular(), persona.getCargo()};
-            modelo.addRow(fila);
+    private void llenarTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // borrar todas las filas existentes
+        for (Persona persona : principal.getPersonasList()) {
+            Object[] row = new Object[5];
+            row[0] = persona.getNombre();
+            row[1] = persona.getIdentificacion();
+            row[2] = persona.getEdad();
+            row[3] = persona.getCelular();
+            row[4] = persona.getCargo();
+            model.addRow(row);
         }
     }
 
-    public static void main(String args[]) {
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DatosPersona().setVisible(true);
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
-    }
+        ));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    // End of variables declaration//GEN-END:variables
 }

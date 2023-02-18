@@ -13,39 +13,52 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import ProyectoFinalP3.Principal;
+import ProyectoFinalP3.Persona;
 
 public class Personal extends javax.swing.JFrame {
 
-    // Campos de la clase
-    private List<Persona> personas; // Lista para almacenar las personas registradas
+    private Persona persona;
+    private Principal principal;
 
     /**
      * Creates new form VDatosPersonal
      */
-    public Personal() {
+    public Personal(Principal principal, String nombre, String identificacion, String celular, String edad, String cargo) {
         initComponents();
-        personas = new ArrayList<>();
+        this.principal = principal;
+        persona = new Persona(nombre, identificacion, edad, celular, cargo);
     }
 
-    public List<Persona> getPersonas() {
-        return this.personas;
+    private String getNombre() {
+        return txtNombre.getText();
     }
 
-    private void guardarPersona() {
-        // Obtener los valores ingresados en los campos de texto y el combo
-        String nombre = txtNombre.getText();
-        String identificacion = txtID.getText();
-        int edad = Integer.parseInt(txtEdad.getText());
-        String celular = txtCelular.getText();
-        String cargo = txtCargo.getText();
+    private String getEdad() {
+        return txtEdad.getText();
+    }
 
-        // Crear una nueva persona con los valores obtenidos
-        Persona persona = new Persona(nombre, identificacion, edad, celular, cargo);
+    private String getIdentificacion() {
+        return txtID.getText();
+    }
 
-        // Agregar la persona a la lista
-        personas.add(persona);
-        DatosPersona datosPersona = new DatosPersona();
-        datosPersona.mostrarDatos(personas);
+    private String getCelular() {
+        return txtCelular.getText();
+    }
+
+    private String getCargo() {
+        return txtCargo.getText();
+    }
+
+    private void setPersonaData() {
+        persona.setNombre(getNombre());
+        persona.setIdentificacion(getIdentificacion());
+        persona.setCelular(getCelular());
+        persona.setCargo(getCargo());
+        persona.setEdad(getEdad());
+    }
+
+    private void clearFields() {
 
         // Borrar los campos de texto y el combo
         txtNombre.setText("");
@@ -122,6 +135,12 @@ public class Personal extends javax.swing.JFrame {
             }
         });
 
+        txtCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCargoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,13 +148,12 @@ public class Personal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(txtID)
@@ -144,6 +162,7 @@ public class Personal extends javax.swing.JFrame {
                             .addComponent(txtNombre))
                         .addGap(51, 51, 51))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -176,19 +195,18 @@ public class Personal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnGuardar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEdad)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCelular)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar))
+                        .addGap(48, 48, 48))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel4, jLabel5, jLabel6});
@@ -197,7 +215,10 @@ public class Personal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        guardarPersona();
+        setPersonaData();
+        principal.getPersonasList().add(persona);
+        JOptionPane.showMessageDialog(this, "Datos guardados exitosamente.");
+        clearFields();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -216,10 +237,17 @@ public class Personal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCelularActionPerformed
 
+    private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCargoActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+    Principal principal = new Principal();
+    Personal personal = new Personal(principal, "", "", "", "", "");
+    personal.setVisible(true);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -245,11 +273,6 @@ public class Personal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Personal().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
